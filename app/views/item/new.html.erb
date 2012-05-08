@@ -1,0 +1,69 @@
+<div class="side_bar">
+	<h2>Options</h2>
+	<p>
+		<a href="/user/profile/manage">Manage profile</a> 		
+	</p>
+	<p>
+		<a href="/user/inventory/manage">Manage inventory</a>
+	</p>	
+</div>
+<div class="centered">
+	<form action="/item/create" method="post" enctype="multipart/form-data">
+		<table border="0" align="center">
+			<tr>
+				<th colspan="2" align="center"><strong>Please supply the following information related to the item</strong> </th>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="right" width="200px" valign="top">Description</td>
+				<td align="center">
+					<textarea rows="5" cols="25" name="description" style="vertical-align: top">
+					</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td align="right" width="200px">Select Category</td>
+				<td align="center">
+					<select name="category" style="width:220px">
+						<% @categories.each do |category|%>
+							<option value="<%= category.id %>"><%= category.description %></option>
+						<%end%>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Display to other users?</td>
+				<td align="left"> &nbsp; &nbsp; <input type="checkbox" name="visible"/></td>
+			</tr>
+		</table>
+		<!--
+			<p align="center">
+			
+			Select an image to attach to the image. To add multiple images, use the <strong>Add New Image</strong>
+				button to select another image to add (note that the current image select will be added) <br/> <br/>
+				<input type="file" name="image" size="40" /> &nbsp;
+				<input type="submit" name="submit" value="Add New Image">	<br/><br/>
+			
+			<input type="submit" name="submit" value="Save Item">
+			
+			<% if !@item.nil? %>
+				<input type="hidden" name="itemref" value="<%= @item.itemguid %>"/>
+			<%end%>
+		-->
+			<p align="center">
+				<input type="hidden" value="1" id="jQueryImgId"/>
+				Select images to attach to this item. To all multiple images, click on the "Add New Image" button.
+				<div id="filecontrols">
+					<p>
+						<input type="file" name="image_1" size="60"/> 
+					</p>
+				</div>
+				<br/>
+				
+				<button class="submit_btn" type="button" id="imageadd">Add New Image</button> &nbsp; &nbsp;
+				<input class="submit_btn" type="submit" />
+			</p>
+		</form>
+</div>

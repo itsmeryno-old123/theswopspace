@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	</head>
+	<body>
+		<h1>
+			Thank you for registering at theswopspace.com, <%= @user.username %> 
+		</h1>
+		<p>
+			The last step is to confirm your email address <br/></br/>
+			
+			<a href="<%= @confirm_url %>">Please click here to confirm your email address</a>
+		</p>
+	</body>
+</html>

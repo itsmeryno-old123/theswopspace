@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="theswopspace src code generation" default="printsrc" basedir=".">
+	
+	<target name="printsrc">
+		<concat destfile="ruby_src.txt" force="no">
+			<fileset dir="." includes="**/*.rb"/>
+		</concat>
+	</target>
+	
+</project>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html class="default">
+<head class="default">
+  <title>Theswopspace</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag 'jquery', 'application'%>
+  <%= csrf_meta_tags %>
+  <%= yield :head %>
+</head>
+<body class="default">
+	<div class="content">
+		<div class="page_header">		
+			<!--<img style="position:relative; top:0px; left:400px;" src="/assets/swopspace.png" width="100" height="100"/>	-->
+			<h1 class="page_header">
+				<img src="/assets/swopspace.png" width="100" height="100"/>	
+				<span style="position:relative; top:-50px;">theswopspace.com</span>
+			</h1>	
+					
+			<div style="position:absolute; left:10px; top:10px">
+				<p style="font-size: 12px;">Created by <strong>JACOBS, R. 201145773. Copyright (c) 2012</strong></p>
+				<p style="font-size: 10px;">Github: <a href="https://github.com/itsmeryno/theswopspace" target="_blank">https://github.com/itsmeryno/theswopspace</a></p>
+			</div>	
+			<div style="position:absolute; right:10px; top:10px;">
+				<%= render :partial => "/auth/login", :locals => {:session => @session} %>
+			</div>	
+		</div>
+		
+		<br/>
+		
+		<%= yield %>		
+		<!--<div class="push"></div>-->
+	</div>
+</body>
+</html>

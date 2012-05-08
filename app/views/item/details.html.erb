@@ -1,0 +1,122 @@
+<% content_for :head do %>
+	<script type="text/javascript">
+		$(function() {
+			var p = location.pathname.split("/");
+			var id = p[p.length-1];
+			
+			$("#gallery").imagegallery();
+			
+			$('#theme-switcher').change(function () {
+			        var theme = $('#theme');
+			        theme.prop(
+			            'href',
+			            theme.prop('href').replace(
+			                /[\w\-]+\/jquery-ui.css/,
+			                $(this).val() + '/jquery-ui.css'
+			            )
+			        );
+			    });
+			
+		    // Create a buttonset out of the checkbox options:
+		    //jQuery('#buttonset').buttonset();
+		    $('#gallery').imagegallery('option', {
+		    	show: 'fade',
+		    	hide: 'fade',
+		    	fullscreen: false,
+		    	slideshow: true && 5000
+		    });
+			
+			$.ajax({
+				url: '/items/images/' + id
+			}).done(function(data) {
+				var gallery = $("#gallery"), url;
+				var tmp = eval(data);
+				
+				for (i=0;i<tmp.length;i++) {
+					img_url = '/image/get/' + tmp[i];
+					/*
+					$('<a rel="gallery"/>')
+											.append($('<img>').prop('src', img_url))
+											.prop('href', img_url)
+											.appendTo(gallery);*/
+					var loading = window.loadImage(
+						img_url,
+						function(img) {
+							$('<a rel="gallery"/>')
+									.append(img)
+									.prop('href', img_url)
+									.appendTo(gallery);
+						},
+						{maxWidth:200}
+					);
+				}
+			})
+		});		
+	</script>
+<%end%>
+<%= render :partial => "/nav/default", :locals => {:session => @session} %>
+<div class="centered">
+	<p>
+		<a href="/items/browse">&lt; Back to item list</a>
+	</p>
+	<p>
+		Description: <br/>
+		<strong>
+			<%= @item.description %>
+		</strong>
+		<br/><br/>
+		Category: <br/>
+		<strong>
+			<%= @category.description %>
+		</strong>
+		<br/><br/>
+		Average rating: <br/>
+		<strong>
+			<%= @item.ratings.average(:value).nil? ? "n/a" : @item.ratings.average(:value) %>
+		</strong>
+	</p>
+	<p>
+		<form action="/items/rate" method="post">
+			<input type="hidden" name="itemguid" value="<%= @item.itemguid %>">
+			<p>
+				Submit a rating &nbsp;
+				<select name="rating">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+				&nbsp;
+				<input class="submit_btn" type="submit" value="Rate" />
+			</p>
+		</form>
+	</p>
+	<p>
+		<form action="/items/nominate" method="post">
+			<input type="hidden" name="itemguid" value="<%= @item.itemguid %>">
+			<p>
+				Nominate for Item of The Month &nbsp; <input class="submit_btn" type="submit" value="Nominate">
+			</p>
+		</form>
+	</p>
+	<p>
+		<div id="gallery">
+		</div>
+	</p>
+	<% if !@nomination.nil? && !@nomination.errors.empty? %>
+		<p>
+			<div class="error_section">
+				<h3>
+					The following errors occurred during the nomination process:
+				</h3>
+				<ul>
+					<% @nomination.errors.full_messages.each do |error|%>
+						<li> <%= error %> </li>
+					<% end %>
+				</ul>
+			</div>
+		</p>		
+	<% end %>
+</div>
+

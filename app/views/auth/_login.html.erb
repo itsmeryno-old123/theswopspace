@@ -1,0 +1,53 @@
+<% if @session.nil? || @session[:authenticated] == false%>
+	<% print "request came from => " + request.original_fullpath() %>
+	<form action="/access/authenticate" method="post">
+		<table border="0">
+		<tr>
+			<td>Username</td>
+			<td><input type="text" name="username" class="username_txtbox" size="20"/></td>
+		</tr>
+		<tr>	
+			<td>Password</td>		
+			<td><input type="password" name="password" class="password_txtbox" size="20"/></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input class="submit_btn" type="submit" value="Login" />
+				<span style="width: 20px">&nbsp;</span>
+				
+				<% if (@session.nil? || @session[:authenticated] == false) %>
+				<a href="/access/register">New user?</a>
+				<%end%>
+				<!--
+				<% if (!@session.nil? && @session[:loginfailed] == true)%>
+				&nbsp; <a href="/access/forgot">Forgot password?</a>
+				<% end %>
+				-->
+			</td>
+		</tr>
+		
+		<input type="hidden" name="loginfrom" value="<%= request.original_fullpath() %>"/>
+
+		<% if (!@session.nil? && @session[:loginfailed] == true)%>
+			<tr>
+				<td colspan="2" style="color:red; font-size=14px;">
+					The username or password supplied is invalid
+				</td>
+			</tr>
+		<% end %>
+		
+	</table>
+	</form>
+<% else %>
+	<% print @session %>
+	<p>Welcome, <%= @session[:user].username %></p>	
+	<p>
+		<a href="/">Home</a>
+	</p>
+	<p>
+		<a href="/user/profile">My profile</a>
+	</p>
+	<p>
+		<a href="/access/logout">Logout</a>
+	</p>	
+<% end %>

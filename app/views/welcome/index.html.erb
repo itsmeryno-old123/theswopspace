@@ -1,0 +1,23 @@
+<% if @session.nil? || @session[:authenticated] == false%>
+<% else %>
+	<%= render :partial => "/nav/default", :locals => {:session => @session} %>
+	<div class="centered">
+		<h2>Latest News</h2>
+		
+		<% if @news.nil? || @news.empty? %>
+			There is no news at this time
+		<%else%>
+			<% @news.each do |n| %>
+				<p>
+					<div style="border-style: solid; border-color:black; border-width: 1px; height: 100px; margin-bottom: 0px;">
+						<p style="position:relative; top:0px; left:5px; margin-top:0px">
+							<%= n.date %>
+						</p>
+						<h4 style="position:relative; left:5px; margin-bottom: 0px"><%= n.description %></h4>
+						<a style="position:relative; left:5px; margin:top:10px;" href="<%= n.link %>">View</a>
+					</div>
+				</p>
+			<% end %>
+		<% end %>
+	</div>
+<%end%>

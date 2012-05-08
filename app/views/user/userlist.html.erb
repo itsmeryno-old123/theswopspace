@@ -1,0 +1,17 @@
+<%= render :partial => "/nav/default", :locals => {:session => @session} %>
+<div class="centered">
+	<% if (!@users.nil? && !@users.empty?) %>
+		<% @users.each do |user| %>
+			<p>
+				<div style="border-style: solid; border-color:black; border-width: 1px; height: 80px; margin-bottom: 0px;">
+					<h4 style="position:relative; left:5px; top: 0px; margin-top:0px; margin-bottom:0px;"><%= user.username %></h4>
+					<span style="position:relative; top:0px; left:5px; margin-top:0px">
+						Member since: <%= user.membersince %>
+					</span><br/><br/>
+					
+					<a style="position:relative; left:5px; margin:top:10px;" href="/user/viewprofile/<%= user.userguid %>">View Profile</a>
+				</div>
+			</p>
+		<%end%>
+	<%end%>
+</div>

@@ -1,0 +1,44 @@
+<div class="side_bar">
+	<h2>Options</h2>
+	<p>
+		<a href="/user/profile/manage">Manage profile</a> 		
+	</p>
+	<p>
+		<a href="/user/inventory/manage">Manage inventory</a>
+	</p>	
+</div>
+<div class="centered">
+	<% if @items.empty? %>
+		<p align="center">
+			You have not yet added any items. &nbsp; &nbsp; <a href="/user/inventory/new">Add a new item</a>
+		</p>
+	<%else%>
+		<form method="post" action="/item/edit">
+			<table border="0" align="center">
+				<tr>
+					<th colspan="5">You have the following items in your inventory list:</th>
+				</tr>			
+				<tr>
+					<th>&nbsp;</th>
+					<th>Item Description</th>
+					<th>Category</th>
+					<th>Visible</th>
+				</tr>
+				
+				<% @items.each do |item|%>
+					<tr>
+						<td><input type="checkbox" name="item_<%= item.itemguid %>"></td>
+						<td><%= item.description %></td>
+						<td><%= item.category_id %></td>
+						<td><%= item.visible %></td>
+						<td><a href="/item/edit/<%= item.itemguid %>">Edit Item</td>
+					</tr>
+				<% end %>
+			</table> 
+			<p align="right">
+				<input class="submit_btn" type="submit" value="Delete Selected" name="submit"/>
+				<input class="submit_btn" type="submit" value="Add Item" name="submit"/>
+			</p>			
+		</form>
+	<% end %>
+</div>

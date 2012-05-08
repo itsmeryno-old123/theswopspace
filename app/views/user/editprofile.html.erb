@@ -1,0 +1,77 @@
+<% content_for :head do %>
+	<script type="text/javascript">
+		$(function() {
+			var p = location.pathname.split("/");
+			var id = p[p.length-1];
+			
+			img_url = '/image/avatar/<%= @user.userguid %>';
+			
+			var loading = window.loadImage(
+				img_url,
+				function(img) {
+					$("#avatar").append(img);
+				},
+				{maxHeight:75}
+			);
+		})
+	</script>
+<% end %>
+<div class="side_bar">
+	<h2>Options</h2>
+	<p>
+		<a href="/user/profile/manage">Manage profile</a> 		
+	</p>
+	<p>
+		<a href="/user/inventory/manage">Manage inventory</a>
+	</p>
+	
+</div>
+<div class="centered">
+	<form method="post" action="/user/saveprofile" enctype="multipart/form-data">
+		<p>
+			Current avatar: 
+			<div id="avatar" style="height: 75px; width:100px; position:relative; left:0px; top:0px; margin-top: 1px">
+			
+			</div>
+			<br/>
+			<p>
+				Select a new avatar for you profile &nbsp; &nbsp;
+				<input type="file" name="avatar" size="40" /> </br/>
+			</p>
+			<p>
+				<table border="0">
+					<tr>
+						<th colspan="2" align="center"><strong>Please note that changing your email address requires you to verify the address again</strong> </th>
+					</tr>
+					<tr>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+						<td align="right">Username</td>
+						<td align="center"><input type="text" name="username" size="20" value="<%= @user.username %>"/></td>
+					</tr>
+					<tr>
+						<td align="right">Current Password</td>
+						<td align="center"><input type="password" name="password_current" size="20"/></td>
+					</tr>
+					<tr>
+						<td align="right">New Password</td>
+						<td align="center"><input type="password" name="password_new" size="20"/></td>
+					</tr>
+					<tr>
+						<td align="right">Confirm Password</td>
+						<td align="center"><input type="password" name="password_confirmation" size="20"/></td>
+					</tr>
+					<tr>
+						<td align="right">Email address</td>
+						<td align="center"><input type="text" name="email" size="20" value="<%= @user.email %>"/></td>
+					</tr>
+				</table>
+			</p>
+			<p align="center">
+				<input type="submit" value="Save information" class="submit_btn">
+			</p>
+			
+		</p>
+	</form>
+</div>

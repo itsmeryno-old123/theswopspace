@@ -1,0 +1,23 @@
+<%= render :partial => "/nav/iotm", :locals => {:session => @session} %>
+
+<div class="centered">
+	<% if @nominations.empty? %>
+		<p>
+			There are currently no items that have been nominated for <strong>Item of The Month</strong></br>
+			You can <a href="/items/browse">browse items</a> and nominate one.
+		</p>
+	<% else %>
+		<h3 align="center">The following items have been nominated for <strong>Item of The Month</strong></h3>
+		<form action="/iotm/vote" method="post">
+			<% @nominations.each do |n|%>
+				<p>
+					<div style="border-style: solid; border-color:black; border-width: 1px; height: 80px; margin-bottom: 0px;">
+						<h4 style="position:relative; top:0px; left:5px; margin-top:0px"><%= n.item.description %></h4>
+						<a style="position:relative; bottom:0px; left:5px; margin-bottom:0px" href="/items/details/<%= n.item.itemguid %>">View details</a>
+						<button name="itemguid" value="<%= n.item.itemguid %>" tyle="position:relative; top:0px; left:200px; margin-top:0px">Vote!</button>
+					</div>					
+				</p>
+			<%end%>
+		</form>		
+	<%end%>
+</div>

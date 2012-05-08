@@ -1,0 +1,24 @@
+<%= render :partial => "/nav/swopspace", :locals => {:pending_count => @pending} %>
+<div class="centered">
+	<h3>User has offered the following items:</h3>
+	<% @offer.each do |item|%>
+		<p>
+			<%= item.description %>
+		</p>
+	<%end%>
+	<br/>
+	<h3>User has requested the following items:</h3>
+	<% @requested.each do |item|%>
+		<p>
+			<%= item.description %>
+		</p>
+	<%end%>
+	<p align="center">
+		<form action="/swop/update" method="post">
+			<input type="hidden" value="<%= @swop.swopguid%>" name="swopguid"/>
+			<input type="submit" value="Accept" name="swopaction" class="submit_btn"/> &nbsp; &nbsp;
+			<input type="submit" value="Reject" name="swopaction" class="submit_btn"/>
+		</form>
+	</p>
+</div>
+

@@ -1,0 +1,42 @@
+<div class="centered">
+	<form method="post" action="/access/doregister">
+		<table border="0">
+			<tr>
+				<th colspan="2" align="center"><strong>Please complete the following information and click on Register</strong></th>
+			</tr>
+			<tr>
+				<td align="right">Username</td>
+				<td align="center"><input type="text" name="username" size="20"/></td>
+			</tr>
+			<tr>
+				<td align="right">Password</td>
+				<td align="center"><input type="password" name="password" size="20"/></td>
+			</tr>
+			<tr>
+				<td align="right">Confirm Password</td>
+				<td align="center"><input type="password" name="password_confirmation" size="20"/></td>
+			</tr>
+			<tr>
+				<td align="right">Email address</td>
+				<td align="center"><input type="text" name="email" size="20"/></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="Register" class="submit_btn"/>
+			</tr>
+		</table>
+	</form>
+	
+	<% if (!@user.nil? && @user.errors.any?)%> 
+		<div class="error_section">
+			<h3>
+				Please correct the following errors to continue registration:
+			</h3>
+			<ul>
+				<% @user.errors.full_messages.each do |error|%>
+					<li> <%= error %> </li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+</div>
+

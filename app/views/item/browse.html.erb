@@ -1,0 +1,31 @@
+<%= render :partial => "/nav/default", :locals => {:session => @session} %>
+<div class="centered">
+	<%if !@items.nil? && !@items.empty?%>
+		<p align="center">
+			<form action="/items/browse" method="post">
+				<div align="left" style="border-style:solid; border-color:black; border-width:2px">
+					Filter &nbsp;
+					<input type="text" name="filter_string" size="7"/> &nbsp; &nbsp;
+					<select name="category" style="width:150px">
+							<option value="-1">All</option>
+							<% @categories.each do |category|%>
+								<option value="<%= category.id %>"><%= category.description %></option>
+							<%end%>
+					</select> &nbsp;
+					<input class="submit_btn" type="submit" value="Apply Filter"/>
+					
+				</div>
+			</form>
+		</p>
+		<% @items.each do |item|%>
+			<p>
+				Description: <%= item.description %><br/>
+				<a href="/items/details/<%= item.itemguid %>">View details</a>
+			</p>
+		<%end%>
+	<%else%>
+		<p align="center">
+			There are no items available
+		</p>
+	<%end%>	
+</div>

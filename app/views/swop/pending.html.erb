@@ -1,0 +1,15 @@
+<%= render :partial => "/nav/swopspace", :locals => {:pending_count => @pending.count} %>
+<div class="centered">
+	<% @pending.each do |swop|%>
+		<p>
+			Request from 
+			<% @users.each do |u|%>
+				<% if (u.userguid == swop.initiator_user_id) %>
+					<strong><%= u.username %></strong>
+				<%end %>
+			<%end%>
+			</br/>
+			<a href="/swop/view/<%= swop.swopguid %>">View Details</a>
+	<%end%>
+</div>
+

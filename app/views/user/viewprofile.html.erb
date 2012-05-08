@@ -1,0 +1,53 @@
+<% content_for :head do %>
+	<script type="text/javascript">
+		$(function() {
+			var p = location.pathname.split("/");
+			var id = p[p.length-1];
+			
+			img_url = '/image/avatar/' + id;
+			
+			var loading = window.loadImage(
+				img_url,
+				function(img) {
+					$("#avatar").append(img);
+				},
+				{maxHeight:75}
+			);
+		})
+	</script>
+<% end %>
+<%= render :partial => "/nav/default", :locals => {:session => @session} %>
+<div class="centered">
+	<div style="border-style: solid; border-color:black; border-width: 1px; height: 100px; margin-bottom: 0px;">
+		<table border="0">
+			<tr>
+				<td width="80px">
+					<div id="avatar" style="height: 75px; position:relative; left:0px; top:0px; margin-top: 1px">
+			
+					</div>
+				</td>
+				<td>
+					<h3 style="position:relative; left:10px; top: 10px; margin-top:0px; margin-bottom:15px;"><%= @user.username %></h3>
+					<span style="position:relative; top:0px; left:10px; margin-top:0px">
+						Member since: <%= @user.membersince %>
+					</span><br/>
+					<span style="position:relative; top:0px; left:10px; margin-top:0px">
+						Member rating: <%= @user.ratings.average(:value).nil? ? "n/a" : @user.ratings.average(:value) %>
+					</span><br/><br/>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<h3>User Items</h3>
+	<% if (@user.items.empty?) %>
+		<p>The user has not yet added any items</p>
+	<%elsif (@user.id != @session[:user].id) && (!@session[:user].items.empty?)%>
+		<a href="/items/swop/<%= @user.userguid %>">Suggest swop</a>
+	<%end%>
+	<% @user.items.each do |item|%>
+			<p>
+				Description: <%= item.description %><br/>
+				<a href="/items/details/<%= item.itemguid %>">View details</a>
+			</p>
+	<%end%>
+</div>

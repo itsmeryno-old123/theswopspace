@@ -1,0 +1,19 @@
+<%= render :partial => "/nav/iotm", :locals => {:session => @session} %>
+<div class="centered">
+	<% if @winners.empty? %>
+		<p align="center">
+			There are no previous winners
+		</p>
+	<%else%>
+		<p align="center">
+			The previous winners are:
+			<% @winners.each do |w|%>
+				<p>
+					<%= w.description %>
+				</p>
+			<%end%>
+		</p>
+	<%end%>
+	
+</div>
+
